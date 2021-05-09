@@ -15,7 +15,7 @@ function golden_section_search(f,a,b;n=50)
     return a < b ? (a, b) : (b, a)
 end
 
-function bracket_minimum(f; x=0, s=1e-2, k=2.0)
+function bracket_minimum(f; x=0, s=1e-2, k=2.0) 
     a, ya = x, f(x)
     b, yb = a + s, f(a + s)
     if yb > ya
