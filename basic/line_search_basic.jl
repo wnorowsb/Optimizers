@@ -1,5 +1,5 @@
 import Base.MathConstants: φ
-function golden_section_search(f,a,b;n=50)
+function golden_section_search_basic(f,a,b;n=50)
     ρ = φ - 1
     d = ρ * b + (1 - ρ)*a
     yd = f(d)
@@ -15,7 +15,7 @@ function golden_section_search(f,a,b;n=50)
     return a < b ? (a, b) : (b, a)
 end
 
-function bracket_minimum(f; x=0, s=1e-2, k=2.0) 
+function bracket_minimum_basic(f; x=0, s=1e-2, k=2.0) 
     a, ya = x, f(x)
     b, yb = a + s, f(a + s)
     if yb > ya
@@ -33,8 +33,8 @@ function bracket_minimum(f; x=0, s=1e-2, k=2.0)
     end
 end
 
-function line_search(φ, φ′, d)
-    a, b = bracket_minimum(φ)
-    x, y = golden_section_search(φ, a, b)
+function line_search_basic(φ, φ′, d)
+    a, b = bracket_minimum_basic(φ)
+    x, y = golden_section_search_basic(φ, a, b)
     x/2 + y/2
 end

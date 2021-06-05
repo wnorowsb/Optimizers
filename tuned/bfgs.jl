@@ -17,7 +17,7 @@ end
 function step!(M::BFGS, f::Function, ∇f::Function, θ::Vector{Float64})
     Q = M.Q
     g = ∇f(θ)
-    d = -Q * g
+    d::Vector{Float64} = -Q * g
     φ = α -> f(θ + α * d)
     φ′ = α -> ∇f(θ + α * d) ⋅ d
     α = line_search(φ, φ′, d)

@@ -1,14 +1,14 @@
-include("line_search.jl")
+include("line_search_basic.jl")
 using LinearAlgebra
-mutable struct LBFGS
+mutable struct LBFGS_basic
     m
     δs
     γs
     qs
-    LBFGS() = new()
+    LBFGS_basic() = new()
 end
 
-function init!(M::LBFGS, m)
+function init!(M::LBFGS_basic, m)
     M.m = m
     M.δs = []
     M.γs = []
@@ -16,7 +16,7 @@ function init!(M::LBFGS, m)
     return M
 end
 
-function step!(M::LBFGS, f, ∇f, θ)
+function step!(M::LBFGS_basic, f, ∇f, θ)
     δs, γs, qs = M.δs, M.γs, M.qs
     m, g = length(δs), ∇f(θ)
     d = -g
@@ -33,7 +33,7 @@ function step!(M::LBFGS, f, ∇f, θ)
         d = -z;
     end
     φ = α -> f(θ + α*d); φ′ = α -> ∇f(θ + α*d)⋅d
-    α = line_search(φ, φ′, d)
+    α = line_search_basic(φ, φ′, d)
     θ′ = θ + α*d; g′ = ∇f(θ′)
     δ = θ′ - θ; γ = g′ - g
     push!(δs, δ); push!(γs, γ); push!(qs, zero(θ))

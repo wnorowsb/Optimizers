@@ -81,3 +81,4 @@ end
 @btime testBFGS(20)
 @btime testLBFGS(20)
 @btime testGD(20)
+println("Koniec testów")
