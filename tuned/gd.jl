@@ -8,7 +8,7 @@ function init!(M::GD, lr)
     return M
 end
 
-function step!(M::GD, f, ∇f, θ)
-    θ′ = θ - ∇f(θ) * M.lr
+function step!(M::GD, f::Function, ∇f::Function, θ::Vector{Float64})
+    θ′ = θ - ∇f(θ)::Vector{Float64} * M.lr
     return θ′
 end

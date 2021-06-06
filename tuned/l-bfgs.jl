@@ -32,9 +32,9 @@ function step!(M::LBFGS, f::Function, ∇f::Function, θ::Vector{Float64})
         end
         d = -z;
     end
-    φ = α -> f(θ + α * d); φ′ = α -> ∇f(θ + α * d) ⋅ d
+    φ = α -> f(θ + α * d)::Float64; φ′ = α -> ∇f(θ + α * d)::Vector{Float64} ⋅ d
     α = line_search(φ, φ′, d)
-    θ′ = θ + α * d; g′ = ∇f(θ′)
+    θ′ = θ + α * d; g′::Vector{Float64} = ∇f(θ′)
     δ = θ′ - θ; γ = g′ - g
     push!(δs, δ); push!(γs, γ); push!(qs, zero(θ))
     while length(δs) > M.m

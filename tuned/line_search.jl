@@ -1,5 +1,5 @@
 import Base.MathConstants:φ
-function golden_section_search(f::Function, a::Float64, b::Float64;n=50)
+function golden_section_search(f::Function, a::Float64, b::Float64;n=50)::Tuple{Float64,Float64}
     ρ = φ - 1
     d = ρ * b + (1 - ρ) * a
     yd = f(d)
@@ -15,7 +15,7 @@ function golden_section_search(f::Function, a::Float64, b::Float64;n=50)
     return a < b ? (a, b) : (b, a)
 end
 
-function bracket_minimum(f::Function; x::Float64=0.0, s::Float64=1e-2, k::Float64=2.0) 
+function bracket_minimum(f::Function; x::Float64=0.0, s::Float64=1e-2, k::Float64=2.0)::Tuple{Float64,Float64}
     a::Float64, ya::Float64 = x, f(x)
     b::Float64, yb::Float64 = a + s, f(a + s)
     if yb > ya
@@ -33,7 +33,7 @@ function bracket_minimum(f::Function; x::Float64=0.0, s::Float64=1e-2, k::Float6
     end
 end
 
-function line_search(φ::Function, φ′::Function, d)
+function line_search(φ::Function, φ′::Function, d)::Float64
     a, b = bracket_minimum(φ)
     # print(a)
     # print(b)
